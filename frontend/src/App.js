@@ -1,8 +1,10 @@
 import React from 'react';
+import './global.css';
 
-import Header from './Header';
+import Routes from './routes';
+
 function App() {
-  return <Header title='Semana OmniStack 11.0' />;
+  return <Routes />;
 }
 
 export default App;
