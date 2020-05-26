@@ -4,13 +4,15 @@ module.exports = {
   async index(req, res) {
     const { page = 1 } = req.query;
 
-    const [count] = await connection('incidents').count();
+    const [count] = await connection('incidents').count().where('incidents.finished', false);
 
     const incidents = await connection('incidents')
-      .join('ongs', 'ong_id', '=', 'incidents.ong_id')
+      .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
       .limit(5)
       .offset((page - 1) * 5)
-      .select(['incidents.*', 'ongs.name', 'ongs.email', 'ongs.whatsapp', 'ongs.city', 'ongs.uf']);
+      .select(['incidents.*', 'ongs.name', 'ongs.email', 'ongs.whatsapp', 'ongs.city', 'ongs.uf'])
+      .where('incidents.finished', false);
+    // .whereNot('incidents.finished', true);
 
     res.header('X-Total-Count', count['count(*)']);
     return res.json(incidents);
