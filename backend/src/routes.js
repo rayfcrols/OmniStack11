@@ -59,7 +59,7 @@ routes.get(
     [Segments.QUERY]: Joi.object().keys({
       page: Joi.number(),
     }),
-    [Segments.HEADERS]: Joi.object({ authorization: Joi.string().required() }).unknown(),
+    // [Segments.HEADERS]: Joi.object({ authorization: Joi.string().required() }).unknown(),
   }),
   IncidentController.index
 );
